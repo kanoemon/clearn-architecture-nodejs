@@ -1,4 +1,4 @@
-export class MenuCreateInputData {
+export class MenuCreateOutputData {
   #name: string;
   #description: string;
   #category: string;
