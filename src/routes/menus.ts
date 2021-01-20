@@ -1,4 +1,5 @@
 import express from 'express';
+import { MenuController } from '../controllers/MenuController';
 
 const Router = express.Router();
 
@@ -7,6 +8,8 @@ Router.get('/', (req, res, next) => {
 });
 
 Router.post('/', (req, res, next) => {
+	const menuController = new MenuController();
+	menuController.createMenu(req);
 	res.send('post');
 });
 
