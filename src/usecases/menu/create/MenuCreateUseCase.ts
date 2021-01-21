@@ -5,12 +5,18 @@ import { MenuSize } from '../../../entities/MenuSize';
 import { Menu } from '../../../entities/Menu';
 import { Price } from '../../../entities/Price';
 import { ICategoryRepository } from '../../ICategoryRepository';
+import { ISizeRepository } from '../../ISizeRepository';
 
 export class MenuCreateUseCase {
   #categoryRepository: ICategoryRepository;
+  #sizeRepository: ISizeRepository;
 
-  constructor(categoryRepository: ICategoryRepository) {
+  constructor(
+    categoryRepository: ICategoryRepository,
+    sizeRepository: ISizeRepository
+    ) {
     this.#categoryRepository = categoryRepository;
+    this.#sizeRepository = sizeRepository;
   }
 
   async handle(inputData: MenuCreateInputData): Promise<MenuCreateOutputData> {
@@ -26,11 +32,23 @@ export class MenuCreateUseCase {
       );
     }
 
+    const size: MenuSize | null = await this.#sizeRepository.findByCategoryName(inputData.size);
+    if (size === null) {
+      // TODO: 仮
+      return new MenuCreateOutputData(
+        'ドリップコーヒー',
+        '美味しいドリップコーヒーです',
+        'drink',
+        'short',
+        300
+      );
+    }
+
     const menu = new Menu(
       inputData.name,
       inputData.description,
       category,
-      new MenuSize(inputData.size),
+      size,
       new Price(inputData.price)
     );
     return new MenuCreateOutputData(

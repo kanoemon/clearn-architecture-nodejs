@@ -1,6 +1,7 @@
 import { MenuCreateUseCase } from '../../../../src/usecases/menu/create/MenuCreateUseCase';
 import { MenuCreateInputData } from '../../../../src/usecases/menu/create/MenuCreateInputData';
 import { CategoryRepository } from '../../../../src/gateways/CategoryRepository';
+import { SizeRepository } from '../../../../src/gateways/SizeRepository';
 
 describe('create menu', () => {
   it ('success', async () => {
@@ -12,7 +13,8 @@ describe('create menu', () => {
       300
     );
     const usecase = new MenuCreateUseCase(
-      new CategoryRepository()
+      new CategoryRepository(),
+      new SizeRepository()
     );
     const outputData = await usecase.handle(inputData);
     expect(outputData.name).toBe('ドリップコーヒー');

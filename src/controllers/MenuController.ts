@@ -1,4 +1,5 @@
 import { CategoryRepository } from '../gateways/CategoryRepository';
+import { SizeRepository } from '../gateways/SizeRepository';
 import { MenuCreateInputData } from '../usecases/menu/create/MenuCreateInputData';
 import { MenuCreateOutputData } from '../usecases/menu/create/MenuCreateOutputData';
 import { MenuCreateUseCase } from '../usecases/menu/create/MenuCreateUseCase';
@@ -13,7 +14,8 @@ export class MenuController {
       request.price
     );
     const usecase = new MenuCreateUseCase(
-      new CategoryRepository()
+      new CategoryRepository(),
+      new SizeRepository()
     );
     return await usecase.handle(inputData);
   }
