@@ -1,9 +1,10 @@
+import { CategoryRepository } from '../gateways/CategoryRepository';
 import { MenuCreateInputData } from '../usecases/menu/create/MenuCreateInputData';
 import { MenuCreateOutputData } from '../usecases/menu/create/MenuCreateOutputData';
 import { MenuCreateUseCase } from '../usecases/menu/create/MenuCreateUseCase';
 
 export class MenuController {
-  createMenu(request): MenuCreateOutputData {
+  async createMenu(request): Promise<MenuCreateOutputData> {
     const inputData = new MenuCreateInputData(
       request.name,
       request.description,
@@ -11,7 +12,9 @@ export class MenuController {
       request.size,
       request.price
     );
-    const usecase = new MenuCreateUseCase();
-    return usecase.handle(inputData);
+    const usecase = new MenuCreateUseCase(
+      new CategoryRepository()
+    );
+    return await usecase.handle(inputData);
   }
 }

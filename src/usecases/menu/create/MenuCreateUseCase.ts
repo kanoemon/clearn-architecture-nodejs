@@ -4,13 +4,25 @@ import { Category } from '../../../entities/Category';
 import { MenuSize } from '../../../entities/MenuSize';
 import { Menu } from '../../../entities/Menu';
 import { Price } from '../../../entities/Price';
+import { ICategoryRepository } from '../../ICategoryRepository';
 
 export class MenuCreateUseCase {
-  handle(inputData: MenuCreateInputData): MenuCreateOutputData {
+  #categoryRepository: ICategoryRepository;
+
+  constructor(categoryRepository: ICategoryRepository) {
+    this.#categoryRepository = categoryRepository;
+  }
+
+  async handle(inputData: MenuCreateInputData): Promise<MenuCreateOutputData> {
+    const category: Category | null = await this.#categoryRepository.findByCategoryName(inputData.category);
+    if (category === null) {
+      // TODO: error
+    }
+
     const menu = new Menu(
       inputData.name,
       inputData.description,
-      new Category(inputData.category),
+      new Category(1, inputData.category),
       new MenuSize(inputData.size),
       new Price(inputData.price)
     );
