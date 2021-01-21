@@ -16,13 +16,20 @@ export class MenuCreateUseCase {
   async handle(inputData: MenuCreateInputData): Promise<MenuCreateOutputData> {
     const category: Category | null = await this.#categoryRepository.findByCategoryName(inputData.category);
     if (category === null) {
-      // TODO: error
+      // TODO: 仮
+      return new MenuCreateOutputData(
+        'ドリップコーヒー',
+        '美味しいドリップコーヒーです',
+        'drink',
+        'short',
+        300
+      );
     }
 
     const menu = new Menu(
       inputData.name,
       inputData.description,
-      new Category(1, inputData.category),
+      category,
       new MenuSize(inputData.size),
       new Price(inputData.price)
     );

@@ -9,6 +9,6 @@ $ npx sequelize-cli db:migrate
 # create a seed file
 $ npx sequelize-cli seed:generate --name demo-user
 
-# run migrations
+# run seeds
 $ npx sequelize-cli db:seed:all
 ```

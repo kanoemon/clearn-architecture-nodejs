@@ -15,7 +15,7 @@ export class CategoryRepository implements ICategoryRepository {
     }
 
     return new Category(
-      categories[0].id,
+      categories[0].dataValues.id,
       name
     );
   }
