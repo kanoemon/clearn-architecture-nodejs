@@ -6,8 +6,8 @@ import { SizeRepository } from '../../../../src/gateways/SizeRepository';
 import { MenuRepository } from '../../../../src/gateways/MenuRepository';
 
 describe('create menu', () => {
-  afterEach(() => {
-    Model.Menus.destroy({
+  beforeEach(async () => {
+    await Model.Menus.destroy({
       truncate: true
     });
   });
