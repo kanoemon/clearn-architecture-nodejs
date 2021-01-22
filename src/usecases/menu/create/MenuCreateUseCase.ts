@@ -7,17 +7,21 @@ import { Price } from '../../../entities/Price';
 import { ICategoryRepository } from '../../ICategoryRepository';
 import { ISizeRepository } from '../../ISizeRepository';
 import { exception } from 'console';
+import { IMenuRepository } from '../../IMenuRepository';
 
 export class MenuCreateUseCase {
   #categoryRepository: ICategoryRepository;
   #sizeRepository: ISizeRepository;
+  #menuRepository: IMenuRepository;
 
   constructor(
     categoryRepository: ICategoryRepository,
-    sizeRepository: ISizeRepository
+    sizeRepository: ISizeRepository,
+    menuRepository: IMenuRepository
     ) {
     this.#categoryRepository = categoryRepository;
     this.#sizeRepository = sizeRepository;
+    this.#menuRepository = menuRepository;
   }
 
   async handle(inputData: MenuCreateInputData): Promise<MenuCreateOutputData> {
@@ -34,12 +38,14 @@ export class MenuCreateUseCase {
       size,
       new Price(inputData.price)
     );
+    this.#menuRepository.save(menu);
+
     return new MenuCreateOutputData(
-      'ドリップコーヒー',
-      '美味しいドリップコーヒーです',
-      'drink',
-      'short',
-      300
+      menu.name,
+      menu.description,
+      menu.category.category,
+      menu.size.size,
+      menu.price.price
     );
   }
 }

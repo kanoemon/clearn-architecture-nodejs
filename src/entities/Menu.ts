@@ -23,4 +23,24 @@ export class Menu {
     this.#size = size;
     this.#price = price;
   }
+
+  get name(): string {
+    return this.#name;
+  }
+
+  get description(): string {
+    return this.#description;
+  }
+
+  get category(): Category {
+    return this.#category;
+  }
+
+  get size(): MenuSize {
+    return this.#size;
+  }
+
+  get price(): Price {
+    return this.#price;
+  }
 }

@@ -2,6 +2,7 @@ import { MenuCreateUseCase } from '../../../../src/usecases/menu/create/MenuCrea
 import { MenuCreateInputData } from '../../../../src/usecases/menu/create/MenuCreateInputData';
 import { CategoryRepository } from '../../../../src/gateways/CategoryRepository';
 import { SizeRepository } from '../../../../src/gateways/SizeRepository';
+import { MenuRepository } from '../../../../src/gateways/MenuRepository';
 
 describe('create menu', () => {
   it ('success', async () => {
@@ -14,7 +15,8 @@ describe('create menu', () => {
     );
     const usecase = new MenuCreateUseCase(
       new CategoryRepository(),
-      new SizeRepository()
+      new SizeRepository(),
+      new MenuRepository()
     );
     const outputData = await usecase.handle(inputData);
     expect(outputData.name).toBe('ドリップコーヒー');
