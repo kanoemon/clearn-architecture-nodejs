@@ -6,6 +6,7 @@ import { Menu } from '../../../entities/Menu';
 import { Price } from '../../../entities/Price';
 import { ICategoryRepository } from '../../ICategoryRepository';
 import { ISizeRepository } from '../../ISizeRepository';
+import { exception } from 'console';
 
 export class MenuCreateUseCase {
   #categoryRepository: ICategoryRepository;
@@ -21,28 +22,10 @@ export class MenuCreateUseCase {
 
   async handle(inputData: MenuCreateInputData): Promise<MenuCreateOutputData> {
     const category: Category | null = await this.#categoryRepository.findByCategoryName(inputData.category);
-    if (category === null) {
-      // TODO: 仮
-      return new MenuCreateOutputData(
-        'ドリップコーヒー',
-        '美味しいドリップコーヒーです',
-        'drink',
-        'short',
-        300
-      );
-    }
+    if (category === null) throw new exception('category invalid');
 
     const size: MenuSize | null = await this.#sizeRepository.findByCategoryName(inputData.size);
-    if (size === null) {
-      // TODO: 仮
-      return new MenuCreateOutputData(
-        'ドリップコーヒー',
-        '美味しいドリップコーヒーです',
-        'drink',
-        'short',
-        300
-      );
-    }
+    if (size === null) throw new exception('size invalid');
 
     const menu = new Menu(
       inputData.name,

@@ -8,8 +8,12 @@ Router.get('/', (req, res, next) => {
 });
 
 Router.post('/', (req, res, next) => {
-	const menuController = new MenuController();
-	menuController.createMenu(req);
+	try {
+    const menuController = new MenuController();
+    menuController.createMenu(req);
+	} catch(error) {
+
+	}
 	res.send('post');
 });
 
