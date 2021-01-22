@@ -8,6 +8,7 @@ import { ICategoryRepository } from '../../../entities/ICategoryRepository';
 import { IMenuRepository } from '../../../entities/IMenuRepository';
 import { MenuFactory } from '../../../entities/MenuFactory';
 import { IMenuFactory } from '../../../entities/IMenuFactory';
+import { MenuService } from '../../../entities/MenuService';
 
 export class MenuCreateUseCase {
   #categoryRepository: ICategoryRepository;
@@ -40,6 +41,10 @@ export class MenuCreateUseCase {
         inputData.size,
         inputData.price
       );
+
+      const menuService = new MenuService(this.#menuRepository);
+      if (menuService.isExists(menu)) throw new Error('menu deplicated');
+
       this.#menuRepository.save(menu, sizeId, categoryId);
 
       return new MenuCreateOutputData(

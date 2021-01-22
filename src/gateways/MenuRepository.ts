@@ -31,4 +31,21 @@ export class MenuRepository implements IMenuRepository {
     }
     return new MenuId(menus.max_id + 1);
   }
+
+  async findIdByName(name: string): Promise<MenuId | null> {
+    const menus = await Model.Menus.findAll({
+      attributes: ['id'],
+      where: {
+        delete_flg: false
+      }
+    });
+    if (menus.length === 0) {
+      return null;
+    }
+
+    return new MenuId(
+      menus[0].dataValues.id
+    );
+
+  }
 }

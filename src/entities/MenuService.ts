@@ -1,4 +1,5 @@
 import { IMenuRepository } from "./IMenuRepository";
+import { Menu } from "./Menu";
 
 export class MenuService {
   #menuRepository: IMenuRepository;
@@ -7,7 +8,8 @@ export class MenuService {
     this.#menuRepository = menuRepsitory;
   }
 
-  isExists(): boolean {
-    return false;
+  isExists(menu: Menu): boolean {
+    const id = this.#menuRepository.findIdByName(menu.name);
+    return id ? true : false;
   }
 }
