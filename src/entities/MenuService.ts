@@ -8,8 +8,8 @@ export class MenuService {
     this.#menuRepository = menuRepsitory;
   }
 
-  isExists(menu: Menu): boolean {
-    const id = this.#menuRepository.findIdByName(menu.name);
+  async isExists(menu: Menu): Promise<boolean> {
+    const id = await this.#menuRepository.findIdByName(menu.name);
     return id ? true : false;
   }
 }

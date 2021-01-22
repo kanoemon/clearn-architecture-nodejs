@@ -1,3 +1,4 @@
+import Model from '../../../../src/models';
 import { MenuCreateUseCase } from '../../../../src/usecases/menu/create/MenuCreateUseCase';
 import { MenuCreateInputData } from '../../../../src/usecases/menu/create/MenuCreateInputData';
 import { CategoryRepository } from '../../../../src/gateways/CategoryRepository';
@@ -5,6 +6,12 @@ import { SizeRepository } from '../../../../src/gateways/SizeRepository';
 import { MenuRepository } from '../../../../src/gateways/MenuRepository';
 
 describe('create menu', () => {
+  afterEach(() => {
+    Model.Menus.destroy({
+      truncate: true
+    });
+  });
+
   it ('success', async () => {
     const inputData = new MenuCreateInputData(
       'ドリップコーヒー',
