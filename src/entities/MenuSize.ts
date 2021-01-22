@@ -1,17 +1,11 @@
 export class MenuSize {
-  #id: number;
-  #size: string;
+  #value: string;
 
-  constructor(id: number, size: string) {
-    this.#id = id;
-    this.#size = size;
+  constructor(size: string) {
+    this.#value = size;
   }
 
-  get id(): number {
-    return this.#id;
-  }
-
-  get size(): string {
-    return this.#size;
+  get value(): string {
+    return this.#value;
   }
 }

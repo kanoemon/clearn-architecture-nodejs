@@ -1,22 +1,23 @@
-import { MenuSize } from '../entities/MenuSize';
+import { MenuSizeId } from '../entities/MenuSizeId';
 import Model from '../models';
 import { ISizeRepository } from '../usecases/ISizeRepository';
 
 export class SizeRepository implements ISizeRepository {
-  async findByCategoryName(name: string): Promise<MenuSize | null> {
+  async findIdByCategoryName(name: string): Promise<MenuSizeId | null> {
     const sizes = await Model.Sizes.findAll({
       attributes: ['id'],
       where: {
-        name: name
+        name: name,
+        delete_flg: false
       }
     });
     if (sizes.length === 0) {
       return null;
     }
 
-    return new MenuSize(
-      sizes[0].dataValues.id,
-      name
+    return new MenuSizeId(
+      sizes[0].dataValues.id
     );
+
   }
 }
