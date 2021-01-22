@@ -1,17 +1,11 @@
 export class Category {
-  #id: number;
-  #category: string;
+  #name: string;
 
-  constructor(id: number, category: string) {
-    this.#id = id;
-    this.#category = category;
+  constructor(name: string) {
+    this.#name = name;
   }
 
-  get id(): number {
-    return this.#id;
-  }
-
-  get category(): string {
-    return this.#category;
+  get name(): string {
+    return this.#name;
   }
 }

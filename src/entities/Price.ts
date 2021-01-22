@@ -1,11 +1,11 @@
 export class Price {
-  #price: number;
+  #value: number;
 
-  constructor(price: number) {
-    this.#price = price;
+  constructor(value: number) {
+    this.#value = value;
   }
 
-  get price(): number {
-    return this.#price;
+  get value(): number {
+    return this.#value;
   }
 }

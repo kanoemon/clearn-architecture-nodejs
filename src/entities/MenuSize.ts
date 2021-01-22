@@ -1,11 +1,11 @@
 export class MenuSize {
-  #value: string;
+  #name: string;
 
-  constructor(size: string) {
-    this.#value = size;
+  constructor(name: string) {
+    this.#name = name;
   }
 
-  get value(): string {
-    return this.#value;
+  get name(): string {
+    return this.#name;
   }
 }
