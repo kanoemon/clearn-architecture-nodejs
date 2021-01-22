@@ -1,11 +1,12 @@
 import { CategoryId } from '../entities/CategoryId';
+import { Category } from '../entities/Category';
 import Model from '../models';
 import { ICategoryRepository } from '../entities/ICategoryRepository';
 
 export class CategoryRepository implements ICategoryRepository {
-  async findIdByCategoryName(name: string): Promise<CategoryId | null> {
+  async findByCategoryName(name: string): Promise<Category | null> {
     const categories = await Model.Categories.findAll({
-      attributes: ['id'],
+      attributes: ['id', 'name'],
       where: {
         name: name
       }
@@ -14,8 +15,9 @@ export class CategoryRepository implements ICategoryRepository {
       return null;
     }
 
-    return new CategoryId(
-      categories[0].dataValues.id
+    return new Category(
+      new CategoryId(categories[0].dataValues.id),
+      categories[0].dataValues.name
     );
   }
 }

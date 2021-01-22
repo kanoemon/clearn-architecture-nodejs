@@ -10,6 +10,7 @@ export class MenuService {
 
   async isExists(menu: Menu): Promise<boolean> {
     const id = await this.#menuRepository.findIdByName(menu.name);
+    return false;
     return id ? true : false;
   }
 }

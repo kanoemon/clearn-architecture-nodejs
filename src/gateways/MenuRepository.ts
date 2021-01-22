@@ -2,17 +2,15 @@ import Model from '../models';
 import { Sequelize } from 'sequelize';
 import { IMenuRepository } from "../entities/IMenuRepository";
 import { Menu } from '../entities/Menu';
-import { MenuSizeId } from '../entities/MenuSizeId';
-import { CategoryId } from '../entities/CategoryId';
 import { MenuId } from '../entities/MenuId';
 
 export class MenuRepository implements IMenuRepository {
-  async save(menu: Menu, sizeId: MenuSizeId, categoryId: CategoryId) {
+  async save(menu: Menu) {
     await Model.Menus.create({
       name: menu.name,
       description: menu.description,
-      category_id: categoryId.value,
-      size: sizeId.value,
+      category_id: menu.category.id.value,
+      size: menu.size.id.value,
       price: menu.price.value
     });
     return;

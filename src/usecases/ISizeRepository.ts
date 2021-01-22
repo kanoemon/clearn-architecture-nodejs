@@ -1,5 +1,5 @@
-import { MenuSizeId } from '../entities/MenuSizeId';
+import { MenuSize } from '../entities/MenuSize';
 
 export interface ISizeRepository {
-  findIdByCategoryName(name: string): Promise<MenuSizeId | null> ;
+  findBySizeName(name: string): Promise<MenuSize | null> ;
 }
