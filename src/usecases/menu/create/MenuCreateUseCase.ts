@@ -45,12 +45,12 @@ export class MenuCreateUseCase {
       const menuService = new MenuService(this.#menuRepository);
       if (await menuService.isExists(menu)) throw new Error('menu deplicated');
 
-      this.#menuRepository.save(menu);
+      this.#menuRepository.save(menu, category);
 
       return new MenuCreateOutputData(
         menu.name,
         menu.description,
-        menu.category.name,
+        category.name,
         menu.size.name,
         menu.price.value
       );

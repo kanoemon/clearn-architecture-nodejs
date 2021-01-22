@@ -1,4 +1,3 @@
-import { Category } from "./Category";
 import { MenuId } from "./MenuId";
 import { MenuSize } from "./MenuSize";
 import { Price } from './Price';
@@ -7,7 +6,6 @@ export class Menu {
   #id: MenuId;
   #name: string;
   #description: string;
-  #category: Category;
   #size: MenuSize;
   #price: Price;
 
@@ -15,14 +13,12 @@ export class Menu {
     id: MenuId,
     name: string,
     description: string,
-    category: Category,
     size: MenuSize,
     price: Price
   ) {
     this.#id = id;
     this.#name = name;
     this.#description = description;
-    this.#category = category;
     this.#size = size;
     this.#price = price;
   }
@@ -37,10 +33,6 @@ export class Menu {
 
   get description(): string {
     return this.#description;
-  }
-
-  get category(): Category {
-    return this.#category;
   }
 
   get size(): MenuSize {

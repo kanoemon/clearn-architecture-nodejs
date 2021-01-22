@@ -3,13 +3,14 @@ import { Sequelize } from 'sequelize';
 import { IMenuRepository } from "../entities/IMenuRepository";
 import { Menu } from '../entities/Menu';
 import { MenuId } from '../entities/MenuId';
+import { Category } from '../entities/Category';
 
 export class MenuRepository implements IMenuRepository {
-  async save(menu: Menu) {
+  async save(menu: Menu, category: Category) {
     await Model.Menus.create({
       name: menu.name,
       description: menu.description,
-      category_id: menu.category.id.value,
+      category_id: category.id.value,
       size: menu.size.id.value,
       price: menu.price.value
     });
@@ -34,6 +35,7 @@ export class MenuRepository implements IMenuRepository {
     const menus = await Model.Menus.findAll({
       attributes: ['id'],
       where: {
+        name: name,
         delete_flg: false
       }
     });

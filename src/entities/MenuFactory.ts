@@ -27,7 +27,6 @@ export class MenuFactory implements IMenuFactory {
       menuId,
       name,
       description,
-      category,
       size,
       new Price(price)
     );
