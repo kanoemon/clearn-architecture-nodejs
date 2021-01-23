@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Sizes.hasMany(models.Menus, {
+        foreignKey: 'size_id'
+      });
     }
   };
   Sizes.init({
@@ -26,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Sizes',
+    underscored: true
   });
   return Sizes;
 };

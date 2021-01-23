@@ -11,6 +11,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Menus.belongsTo(models.Sizes, {
+        foreignKey: 'size_id'
+      });
+      Menus.belongsTo(models.Categories, {
+        foreignKey: 'category_id'
+      });
     }
   };
   Menus.init({
@@ -41,6 +47,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Menus',
+    underscored: true
   });
   return Menus;
 };
