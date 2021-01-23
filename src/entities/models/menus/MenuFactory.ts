@@ -1,11 +1,5 @@
-import { Category } from "./Category";
-import { CategoryId } from "./CategoryId";
-import { IMenuFactory } from "./IMenuFactory";
-import { IMenuRepository } from "./IMenuRepository";
-import { MenuId } from './MenuId';
-import { MenuSize } from "./MenuSize";
-import { Price } from "./Price";
-import { Menu } from "./Menu";
+import { Category } from "../categories";
+import { Menu, Price, MenuId, MenuSize, IMenuFactory, IMenuRepository } from "./";
 
 export class MenuFactory implements IMenuFactory {
   #menuRepository: IMenuRepository;

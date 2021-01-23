@@ -1,5 +1,4 @@
-import { IMenuRepository } from "./IMenuRepository";
-import { Menu } from "./Menu";
+import { Menu, IMenuRepository } from "../models/menus";
 
 export class MenuService {
   #menuRepository: IMenuRepository;

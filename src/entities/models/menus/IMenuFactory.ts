@@ -1,6 +1,5 @@
-import { Menu } from './Menu';
-import { MenuSize } from './MenuSize';
-import { Category } from './Category';
+import { Menu, MenuSize } from './';
+import { Category } from '../categories';
 
 export interface IMenuFactory {
   createMenu(

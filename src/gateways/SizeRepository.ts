@@ -1,7 +1,5 @@
-import { MenuSize } from '../entities/MenuSize';
-import { MenuSizeId } from '../entities/MenuSizeId';
+import { MenuSizeId, MenuSize, ISizeRepository } from '../entities/models/menus'
 import Model from '../models';
-import { ISizeRepository } from '../usecases/ISizeRepository';
 
 export class SizeRepository implements ISizeRepository {
   async findBySizeName(name: string): Promise<MenuSize | null> {

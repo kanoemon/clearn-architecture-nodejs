@@ -1,6 +1,5 @@
-import { Menu } from './Menu';
-import { MenuId } from './MenuId';
-import { Category } from './Category';
+import { MenuId, Menu } from './';
+import { Category } from '../categories';
 
 export interface IMenuRepository {
   save(menu: Menu, category: Category);

@@ -1,14 +1,8 @@
 import { MenuCreateOutputData } from './MenuCreateOutputData';
 import { MenuCreateInputData } from './MenuCreateInputData';
-import { Category } from '../../../entities/Category';
-import { MenuSize } from '../../../entities/MenuSize';
-import { Menu } from '../../../entities/Menu';
-import { ISizeRepository } from '../../ISizeRepository';
-import { ICategoryRepository } from '../../../entities/ICategoryRepository';
-import { IMenuRepository } from '../../../entities/IMenuRepository';
-import { MenuFactory } from '../../../entities/MenuFactory';
-import { IMenuFactory } from '../../../entities/IMenuFactory';
-import { MenuService } from '../../../entities/MenuService';
+import { Category, ICategoryRepository } from '../../../entities/models/categories';
+import { Menu, MenuSize, MenuFactory, IMenuFactory, IMenuRepository, ISizeRepository } from '../../../entities/models/menus';
+import { MenuService } from '../../../entities/services/MenuService';
 
 export class MenuCreateUseCase {
   #categoryRepository: ICategoryRepository;

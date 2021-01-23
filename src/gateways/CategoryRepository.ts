@@ -1,7 +1,5 @@
-import { CategoryId } from '../entities/CategoryId';
-import { Category } from '../entities/Category';
 import Model from '../models';
-import { ICategoryRepository } from '../entities/ICategoryRepository';
+import { Category, CategoryId, ICategoryRepository } from '../entities/models/categories';
 
 export class CategoryRepository implements ICategoryRepository {
   async findByCategoryName(name: string): Promise<Category | null> {

@@ -1,9 +1,7 @@
 import Model from '../models';
 import { Sequelize } from 'sequelize';
-import { IMenuRepository } from "../entities/IMenuRepository";
-import { Menu } from '../entities/Menu';
-import { MenuId } from '../entities/MenuId';
-import { Category } from '../entities/Category';
+import { Menu, MenuId, IMenuRepository } from "../entities/models/menus";
+import { Category } from '../entities/models/categories';
 
 export class MenuRepository implements IMenuRepository {
   async save(menu: Menu, category: Category) {
