@@ -3,6 +3,7 @@ import { Sequelize } from 'sequelize';
 import { Menu, MenuId, IMenuRepository, Price } from "../entities/models/menus";
 import { SizeId } from "../entities/models/sizes";
 import { CategoryId } from '../entities/models/categories';
+import { REPL_MODE_SLOPPY } from 'repl';
 
 export class MenuRepository implements IMenuRepository {
   async save(menu: Menu) {
@@ -64,6 +65,16 @@ export class MenuRepository implements IMenuRepository {
       new SizeId(menus[0].dataValues.size_id),
       new CategoryId(menus[0].dataValues.category_id),
       new Price(menus[0].dataValues.price),
+    );
+  }
+
+  async remove(menu: Menu) {
+    await Model.Menus.update(
+      { delete_flg: false },
+      { where: {
+          id: menu.id.value
+        }
+      }
     );
   }
 }

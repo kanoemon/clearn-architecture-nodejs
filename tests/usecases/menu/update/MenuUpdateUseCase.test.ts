@@ -5,7 +5,7 @@ import { CategoryRepository } from '../../../../src/gateways/CategoryRepository'
 import { SizeRepository } from '../../../../src/gateways/SizeRepository';
 import { MenuRepository } from '../../../../src/gateways/MenuRepository';
 
-describe('create menu', () => {
+describe('update menu', () => {
   beforeEach(async () => {
     await Model.Menus.destroy({
       truncate: true

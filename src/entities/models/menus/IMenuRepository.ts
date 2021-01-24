@@ -5,4 +5,5 @@ export interface IMenuRepository {
   nextIdentity(): Promise<MenuId>;
   findIdByName(name: string): Promise<MenuId | null>;
   findById(menuId: MenuId): Promise<Menu | null>;
+  remove(menu: Menu);
 }
