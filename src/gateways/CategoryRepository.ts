@@ -18,4 +18,21 @@ export class CategoryRepository implements ICategoryRepository {
       categories[0].dataValues.name
     );
   }
+
+  async findById(id: CategoryId): Promise<Category | null> {
+    const categories = await Model.Categories.findAll({
+      attributes: ['id', 'name'],
+      where: {
+        id: id.value
+      }
+    });
+    if (categories.length === 0) {
+      return null;
+    }
+
+    return new Category(
+      new CategoryId(categories[0].dataValues.id),
+      categories[0].dataValues.name
+    );
+  }
 }

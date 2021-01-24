@@ -19,4 +19,22 @@ export class SizeRepository implements ISizeRepository {
       sizes[0].dataValues.name
     );
   }
+
+  async findById(id: SizeId): Promise<Size | null> {
+    const sizes = await Model.Sizes.findAll({
+      attributes: ['id', 'name'],
+      where: {
+        id: id.value,
+        delete_flg: false
+      }
+    });
+    if (sizes.length === 0) {
+      return null;
+    }
+
+    return new Size(
+      id,
+      sizes[0].dataValues.name
+    );
+  }
 }

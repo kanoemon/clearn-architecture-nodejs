@@ -13,9 +13,23 @@ describe('create menu', () => {
   });
 
   it ('success menu name', async () => {
+    await Model.Menus.create({
+      name: 'MenuUpdateUseCaseTest1',
+      description: '冬におすすめ',
+      category_id: 1,
+      size_id: 1,
+      price: 500
+    });
+    const hasMenus = await Model.Menus.findAll({
+      attributes: ['id'],
+      where: {
+        name: 'MenuUpdateUseCaseTest1',
+      }
+    });
+
     const inputData = new MenuUpdateInputData(
-      1, 
-      'MenuUpdateUseCaseTestChanged',
+      hasMenus[0].dataValues.id, 
+      'MenuUpdateUseCaseTest1Changed',
       null,
       null,
       null,
@@ -27,10 +41,10 @@ describe('create menu', () => {
       new MenuRepository()
     );
     const outputData = await usecase.handle(inputData);
-    expect(outputData.name).toBe('ドリップコーヒー');
-    expect(outputData.description).toBe('美味しいドリップコーヒーです');
+    expect(outputData.name).toBe('MenuUpdateUseCaseTest1Changed');
+    expect(outputData.description).toBe('冬におすすめ');
     expect(outputData.category).toBe('drink');
     expect(outputData.size).toBe('short');
-    expect(outputData.price).toBe(300);
+    expect(outputData.price).toBe(500);
   });
 });

@@ -29,11 +29,11 @@ export class MenuUpdateUseCase {
 
     await this.#menuRepository.save(menu);
 
-    const category: Category | null = await this.#categoryRepository.findByCategoryName(menu.categoryId.value);
-    if (category === null) throw new Error('category invalid');
+    const category = await this.#categoryRepository.findById(menu.categoryId);
+    if (category === null) throw new Error('category not found');
 
-    const size: Size | null = await this.#sizeRepository.findBySizeName(inputData.size);
-    if (size === null) throw new Error('size invalid');
+    const size = await this.#sizeRepository.findById(menu.sizeId);
+    if (size === null) throw new Error('size not found');
 
     return new MenuUpdateOutputData(
         menu.name,
