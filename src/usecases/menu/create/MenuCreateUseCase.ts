@@ -2,7 +2,7 @@ import { MenuCreateOutputData } from './MenuCreateOutputData';
 import { MenuCreateInputData } from './MenuCreateInputData';
 import { Category, ICategoryRepository } from '../../../entities/models/categories';
 import { Menu, MenuFactory, IMenuFactory, IMenuRepository } from '../../../entities/models/menus';
-import { Size, SizeId, ISizeRepository } from '../../../entities/models/sizes';
+import { Size, ISizeRepository } from '../../../entities/models/sizes';
 import { MenuService } from '../../../entities/services/MenuService';
 
 export class MenuCreateUseCase {
@@ -27,22 +27,20 @@ export class MenuCreateUseCase {
     const size: Size | null = await this.#sizeRepository.findBySizeName(inputData.size);
     if (size === null) throw new Error('size invalid');
 
-    const sizeId: SizeId | null = await this.#sizeRepository.findIdBySizeName(inputData.size);
-    if (sizeId === null) throw new Error('size invalid');
-
     const menuFactory: IMenuFactory = new MenuFactory(this.#menuRepository);
     try {
       const menu: Menu = await menuFactory.createMenu(
         inputData.name,
         inputData.description,
         size.id, 
+        category.id,
         inputData.price
       );
 
       const menuService = new MenuService(this.#menuRepository);
       if (await menuService.isExists(menu)) throw new Error('menu deplicated');
 
-      this.#menuRepository.save(menu, size, category);
+      this.#menuRepository.save(menu);
 
       return new MenuCreateOutputData(
         menu.name,

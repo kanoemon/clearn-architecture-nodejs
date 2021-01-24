@@ -1,7 +1,8 @@
 import { MenuUpdateOutputData } from './MenuUpdateOutputData';
 import { MenuUpdateInputData } from './MenuUpdateInputData';
 import { Category, ICategoryRepository } from '../../../entities/models/categories';
-import { Menu, MenuSize, MenuFactory, IMenuFactory, IMenuRepository, ISizeRepository, MenuId } from '../../../entities/models/menus';
+import { Menu, MenuFactory, IMenuFactory, IMenuRepository, MenuId } from '../../../entities/models/menus';
+import { Size, ISizeRepository } from '../../../entities/models/sizes';
 import { MenuService } from '../../../entities/services/MenuService';
 
 export class MenuUpdateUseCase {
@@ -21,7 +22,13 @@ export class MenuUpdateUseCase {
 
   async handle(inputData: MenuUpdateInputData): Promise<MenuUpdateOutputData> {
     const menuId: MenuId = new MenuId(inputData.id);
-    const menu = this.#menuRepository.findById(menuId);
+    const menu: Menu | null = await this.#menuRepository.findById(menuId);
+    if (menu === null) throw new Error('menu not found');
+
+    if (inputData.name) menu.changeName(inputData.name);
+
+    await this.#menuRepository.save(menu);
+
     return new MenuUpdateOutputData(
 
     );

@@ -1,16 +1,16 @@
 import Model from '../models';
 import { Sequelize } from 'sequelize';
-import { Menu, MenuId, IMenuRepository } from "../entities/models/menus";
-import { Size } from "../entities/models/sizes";
-import { Category } from '../entities/models/categories';
+import { Menu, MenuId, IMenuRepository, Price } from "../entities/models/menus";
+import { SizeId } from "../entities/models/sizes";
+import { CategoryId } from '../entities/models/categories';
 
 export class MenuRepository implements IMenuRepository {
-  async save(menu: Menu, size: Size, category: Category) {
+  async save(menu: Menu) {
     await Model.Menus.create({
       name: menu.name,
       description: menu.description,
-      category_id: category.id.value,
-      size: size.id.value,
+      category_id: menu.categoryId.value,
+      size: menu.sizeId.value,
       price: menu.price.value
     });
     return;
@@ -47,34 +47,23 @@ export class MenuRepository implements IMenuRepository {
     );
   }
 
-  async findById(menuId: MenuId) {
+  async findById(menuId: MenuId): Promise<Menu | null> {
     const menus = await Model.Menus.findAll({
-      attributes: ['id', 'name', 'description', 'price'],
+      attributes: ['id', 'name', 'description', 'size_id', 'category_id', 'price'],
       where: {
         id: menuId.value,
         delete_flg: false
       },
-      include: [
-        {
-          model: Model.Sizes,
-          required: true,
-          attributes: ['id', 'name'],
-          where: {
-            delete_flg: false
-          }
-        },
-        {
-          model: Model.Categories,
-          required: true,
-          attributes: ['id', 'name'],
-          where: {
-            delete_flg: false
-          }
-        }
-      ]
     });
     if (menus.length === 0) return null;
 
-
+    return new Menu(
+      menuId,
+      menus[0].dataValues.name,
+      menus[0].dataValues.description,
+      new SizeId(menus[0].dataValues.size_id),
+      new CategoryId(menus[0].dataValues.category_id),
+      new Price(menus[0].dataValues.price),
+    );
   }
 }

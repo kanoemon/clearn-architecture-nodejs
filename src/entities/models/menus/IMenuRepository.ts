@@ -1,10 +1,8 @@
 import { MenuId, Menu } from './';
-import { Size } from '../sizes';
-import { Category } from '../categories';
 
 export interface IMenuRepository {
-  save(menu: Menu, size: Size, category: Category);
-  nextIdentity();
+  save(menu: Menu);
+  nextIdentity(): Promise<MenuId>;
   findIdByName(name: string): Promise<MenuId | null>;
-  findById(menuId: MenuId);
+  findById(menuId: MenuId): Promise<Menu | null>;
 }
