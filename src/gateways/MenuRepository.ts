@@ -6,7 +6,7 @@ import { CategoryId } from '../entities/models/categories';
 
 export class MenuRepository implements IMenuRepository {
   async save(menu: Menu) {
-    await Model.Menus.create({
+    await Model.Menus.upsert({
       name: menu.name,
       description: menu.description,
       category_id: menu.categoryId.value,

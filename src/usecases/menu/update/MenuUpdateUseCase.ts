@@ -29,8 +29,18 @@ export class MenuUpdateUseCase {
 
     await this.#menuRepository.save(menu);
 
-    return new MenuUpdateOutputData(
+    const category: Category | null = await this.#categoryRepository.findByCategoryName(menu.categoryId.value);
+    if (category === null) throw new Error('category invalid');
 
+    const size: Size | null = await this.#sizeRepository.findBySizeName(inputData.size);
+    if (size === null) throw new Error('size invalid');
+
+    return new MenuUpdateOutputData(
+        menu.name,
+        menu.description,
+        category.name,
+        size.name,
+        menu.price.value
     );
   }
 }
