@@ -4,6 +4,7 @@ import { Category, ICategoryRepository } from '../../../entities/models/categori
 import { Menu, MenuFactory, IMenuFactory, IMenuRepository } from '../../../entities/models/menus';
 import { Size, ISizeRepository } from '../../../entities/models/sizes';
 import { MenuService } from '../../../entities/services/MenuService';
+import { UseCaseLifeCycle } from '../../UseCaseLifeCycle';
 
 export class MenuCreateUseCase {
   #categoryRepository: ICategoryRepository;
@@ -28,6 +29,9 @@ export class MenuCreateUseCase {
     if (size === null) throw new Error('size invalid');
 
     const menuFactory: IMenuFactory = new MenuFactory(this.#menuRepository);
+
+    UseCaseLifeCycle.begin();
+
     try {
       const menu: Menu = await menuFactory.createMenu(
         inputData.name,
@@ -42,6 +46,8 @@ export class MenuCreateUseCase {
 
       this.#menuRepository.save(menu);
 
+      UseCaseLifeCycle.success();
+
       return new MenuCreateOutputData(
         menu.name,
         menu.description,
@@ -50,6 +56,8 @@ export class MenuCreateUseCase {
         menu.price.value
       );
     } catch(error) {
+      UseCaseLifeCycle.fail();
+
       throw new Error(error);
     }
   }
