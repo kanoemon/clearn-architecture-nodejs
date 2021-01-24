@@ -1,8 +1,6 @@
 import { MenuGetOutputData } from './MenuGetOutputData';
 import { MenuGetInputData } from './MenuGetInputData';
-import { Category, ICategoryRepository } from '../../../entities/models/categories';
-import { Menu, MenuSize, MenuFactory, IMenuFactory, IMenuRepository, ISizeRepository, MenuId } from '../../../entities/models/menus';
-import { MenuService } from '../../../entities/services/MenuService';
+import { MenuId } from '../../../entities/models/menus';
 import { IMenuQueryService } from '../shared/IMenuQueryService';
 import { IGetMenuByIdWithAdditionalInformationResult } from '../shared/IGetMenuByIdWithAdditionalInformationResult';
 
