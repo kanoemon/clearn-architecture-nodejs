@@ -1,12 +1,11 @@
-import { Menu, MenuSize } from './';
-import { Category } from '../categories';
+import { Menu } from './';
+import { SizeId } from '../sizes';
 
 export interface IMenuFactory {
   createMenu(
     name: string, 
     decription: string,
-    category: Category,
-    size: MenuSize,
+    sizeId: SizeId,
     price: number
   ): Promise<Menu>;
 }

@@ -1,25 +1,25 @@
 import { MenuId } from "./MenuId";
-import { MenuSize } from "./MenuSize";
+import { SizeId } from "../sizes";
 import { Price } from './Price';
 
 export class Menu {
   #id: MenuId;
   #name: string;
   #description: string;
-  #size: MenuSize;
+  #sizeId: SizeId;
   #price: Price;
 
   constructor(
     id: MenuId,
     name: string,
     description: string,
-    size: MenuSize,
+    sizeId: SizeId,
     price: Price
   ) {
     this.#id = id;
     this.#name = name;
     this.#description = description;
-    this.#size = size;
+    this.#sizeId = sizeId;
     this.#price = price;
   }
 
@@ -35,8 +35,8 @@ export class Menu {
     return this.#description;
   }
 
-  get size(): MenuSize {
-    return this.#size;
+  get sizeId(): SizeId {
+    return this.#sizeId;
   }
 
   get price(): Price {

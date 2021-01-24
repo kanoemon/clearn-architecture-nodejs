@@ -1,8 +1,8 @@
-import { MenuSizeId, MenuSize, ISizeRepository } from '../entities/models/menus'
+import { SizeId, Size, ISizeRepository } from '../entities/models/sizes'
 import Model from '../models';
 
 export class SizeRepository implements ISizeRepository {
-  async findBySizeName(name: string): Promise<MenuSize | null> {
+  async findBySizeName(name: string): Promise<Size | null> {
     const sizes = await Model.Sizes.findAll({
       attributes: ['id', 'name'],
       where: {
@@ -14,9 +14,26 @@ export class SizeRepository implements ISizeRepository {
       return null;
     }
 
-    return new MenuSize(
-      new MenuSizeId(sizes[0].dataValues.id),
+    return new Size(
+      new SizeId(sizes[0].dataValues.id),
       sizes[0].dataValues.name
+    );
+  }
+
+  async findIdBySizeName(name: string): Promise<SizeId | null> {
+    const sizes = await Model.Sizes.findAll({
+      attributes: ['id'],
+      where: {
+        name: name,
+        delete_flg: false
+      }
+    });
+    if (sizes.length === 0) {
+      return null;
+    }
+
+    return new SizeId(
+      sizes[0].dataValues.id
     );
   }
 }

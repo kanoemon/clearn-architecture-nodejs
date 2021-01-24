@@ -1,5 +1,5 @@
-import { Category } from "../categories";
-import { Menu, Price, MenuId, MenuSize, IMenuFactory, IMenuRepository } from "./";
+import { Menu, Price, MenuId, IMenuFactory, IMenuRepository } from "./";
+import { SizeId } from "../sizes";
 
 export class MenuFactory implements IMenuFactory {
   #menuRepository: IMenuRepository;
@@ -11,8 +11,7 @@ export class MenuFactory implements IMenuFactory {
   async createMenu(
     name: string, 
     description: string,
-    category: Category,
-    size: MenuSize,
+    sizeId: SizeId,
     price: number
     ): Promise<Menu> {
 
@@ -21,7 +20,7 @@ export class MenuFactory implements IMenuFactory {
       menuId,
       name,
       description,
-      size,
+      sizeId, 
       new Price(price)
     );
   }
