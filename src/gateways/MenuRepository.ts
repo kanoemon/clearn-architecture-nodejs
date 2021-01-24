@@ -44,6 +44,36 @@ export class MenuRepository implements IMenuRepository {
     return new MenuId(
       menus[0].dataValues.id
     );
+  }
+
+  async findById(menuId: MenuId) {
+    const menus = await Model.Menus.findAll({
+      attributes: ['id', 'name', 'description', 'price'],
+      where: {
+        id: menuId.value,
+        delete_flg: false
+      },
+      include: [
+        {
+          model: Model.Sizes,
+          required: true,
+          attributes: ['id', 'name'],
+          where: {
+            delete_flg: false
+          }
+        },
+        {
+          model: Model.Categories,
+          required: true,
+          attributes: ['id', 'name'],
+          where: {
+            delete_flg: false
+          }
+        }
+      ]
+    });
+    if (menus.length === 0) return null;
+
 
   }
 }
