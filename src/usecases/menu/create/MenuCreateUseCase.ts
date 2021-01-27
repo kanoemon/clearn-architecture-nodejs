@@ -30,7 +30,9 @@ export class MenuCreateUseCase {
 
     const menuFactory: IMenuFactory = new MenuFactory(this.#menuRepository);
 
-    UseCaseLifeCycle.begin();
+    const useCaseLifeCycle = new UseCaseLifeCycle();
+
+    useCaseLifeCycle.begin();
 
     try {
       const menu: Menu = await menuFactory.createMenu(
@@ -46,7 +48,7 @@ export class MenuCreateUseCase {
 
       this.#menuRepository.save(menu);
 
-      UseCaseLifeCycle.success();
+      useCaseLifeCycle.success();
 
       return new MenuCreateOutputData(
         menu.name,
@@ -56,7 +58,7 @@ export class MenuCreateUseCase {
         menu.price.value
       );
     } catch(error) {
-      UseCaseLifeCycle.fail();
+      useCaseLifeCycle.fail();
 
       throw new Error(error);
     }
